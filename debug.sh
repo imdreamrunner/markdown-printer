@@ -1,0 +1,1 @@
+DEBUG=markdown-printer ./bin/www
