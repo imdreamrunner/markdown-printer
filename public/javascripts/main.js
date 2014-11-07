@@ -1,12 +1,15 @@
 (function() {
 
-  var HEADER_HEIGHT = 50;
 
   // tools
+
   var $ = document.querySelector.bind(document);
   var all$ = document.querySelectorAll.bind(document);
   var id$ = document.getElementById.bind(document);
   var class$ = document.getElementsByClassName.bind(document);
+
+  /*
+   var HEADER_HEIGHT = 50;
 
   var browserWidth, browserHeight;
   var codeAreaProportion = 0.5, previewAreaProportion = 0.5, settingAreaProportion = 0;
@@ -69,21 +72,65 @@
     browserHeight = window.innerHeight;
     adjustLayout();
   };
+  */
+
+  var GITHUB = 0, CLIPBOARD = 1, LOCAL_FILE = 2;
+  var SOURCES = ["github", "clipboard", "file"];
+
+  var inputSource;
+
+  var markdown_source;
+
+  var scrollTo = function(element) {
+    document.body.scrollTop = id$(element).offsetTop - 30;
+  };
+
+  var selectSource = function(source) {
+
+    for (var i = 0; i < 3; i++) {
+      if (i != source)
+        id$("select-" + SOURCES[i]).classList.remove("selected");
+        id$(SOURCES[i] + "-wrapper").style.display = "none";
+    }
+
+    id$("select-" + SOURCES[source]).classList.add("selected");
+    id$(SOURCES[source] + "-wrapper").style.display = "block";
+
+    scrollTo("source");
+  };
+
+  var renderContent = function() {
+    id$("preview-content").innerHTML = marked(markdown_source);
+    id$("preview").style.display = "block";
+    id$("input-wrapper").style.display = "none";
+    id$("new-input").style.display = "block";
+    scrollTo("preview");
+  };
 
   var onLoad = function() {
-    $divWrapper = id$("wrapper")
-    $divCode = id$("code");
-    $divPreview = id$("preview");
-    $divSetting = id$("setting");
-    $textareaCode = id$("textarea_code");
-    $divPreviewContent = id$("preview_content");
-    browserWidth = window.innerWidth;
-    browserHeight = window.innerHeight;
-    adjustLayout();
-    document.body.onresize = onBrowserResize;
-    $textareaCode.onkeyup = onSourceChange;
-    $textareaCode.onscroll = onSourceScroll;
-    $divPreviewContent.onscroll = onPreviewScorll;
+    console.log("document loaded.");
+
+    for (var i = 0; i < 3; i++) {
+      id$("select-" + SOURCES[i]).onclick = (
+        function() {
+          var type = i;
+          return (function () {
+            selectSource(type);
+          });
+        }
+      )();
+    }
+
+    id$("clipboard-button").onclick = function() {
+      markdown_source = id$("clipboard").value;
+      renderContent();
+    }
+
+    id$("new-input").onclick = function() {
+      id$("input-wrapper").style.display = "block";
+      id$("new-input").style.display = "none";
+      scrollTo("source");
+    }
   };
 
   window.onload = onLoad;

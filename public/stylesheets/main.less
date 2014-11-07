@@ -1,7 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700|Ubuntu:300,400);
 
-@dark_base: #666699;
-@light_base: #66CCCC;
+@base: rgb(0, 133, 115);
+@dark: rgb(33, 44, 55);
+@width: 1000px;
 
 .font_regular {
   font-family: "Ubuntu", Helvetica, Arial, sans-serif;
@@ -29,7 +30,10 @@
   box-sizing: border-box;
 }
 
-textarea, input { outline: none; }
+textarea, input {
+  outline: none;
+  -webkit-appearance: none;
+}
 
 body, html {
   margin: 0;
@@ -38,46 +42,191 @@ body, html {
   height: 100%;
 }
 
-#wrapper {
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+body {
+  background: fade(@base, 7%);
 }
 
-.section {
+header {
+  width: 1000px;
+  height: 500px;
+  margin: 0 auto;
+  background: fade(@base, 20%);
+  border-bottom-right-radius: 500px;
+  border-bottom-left-radius: 500px;
+}
+
+header > h1 {
+  width: 400px;
+  top: 250px;
+  left: 50%;
+  margin-left: -200px;
+  color: #FFF;
   position: absolute;
-  top: 0;
-  transition: width 1s, left 1s;
-  overflow: hidden;
-}
-
-.header {
+  background: fade(@base, 40%);
+  text-align: center;
   height: 50px;
-  background: @dark_base;
+  line-height: 50px;
+  font-size: 28px;
 }
 
-#div_code {
-  width: 50%;
-  float: left;
+section {
+  width: 1000px;
+  margin: 50px auto;
+  & > h2 {
+    text-align: center;
+    font-size: 20px;
+    color: fade(@dark, 80%);
+  }
 }
 
-#textarea_code {
-  display: block;
-  width: 100%;
-  margin: 0;
-  padding: 10px;
-  border: 0;
-  background: #E5E5E5;
-  .mono_regular;
-  font-size: 16px;
-  resize: none;
+#source {
+  height: 400px;
 }
 
-#preview_content {
-  width: 100%;
-  overflow: auto;
+#select-source {
+  margin: 0 auto;
+  width: 360px;
+  background: #FFF;
+  height: 30px;
+  border-radius: 8px;
+  overflow: hidden;
+  a {
+    width: 120px;
+    display: block;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    color: @base;
+    text-decoration: none;
+    // padding-left: 30px;
+    // later add icon
+    text-align: center;
+    &:hover {
+      color: #FFF;
+      background: fade(@base, 60%);
+    }
+    &.selected {
+      color: #FFF;
+      background: @base;
+    }
+  }
+}
+
+.source {
+  margin: 20px 0;
+  text-align: center;
+}
+
+#github-wrapper {
+  font-size: 0;
+  input {
+    box-sizing: content-box;
+    height: 20px;
+    padding: 15px;
+    font-size: 18px;
+  }
+  input#github {
+    border: 1px solid #EEE;
+    width: 500px;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    color: @dark;
+  }
+  input#github-button {
+    border: none;
+    background: #BBB;
+    color: #FFF;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+    margin-left: -1px;
+    &:hover {
+      background: #999;
+    }
+  }
+}
+
+#clipboard-wrapper {
+  display: none;
+  textarea, input {
+    display: block;
+    width: 650px;
+    margin: 0 auto;
+  }
+  textarea {
+    border: 1px solid #EEE;
+    resize: none;
+    height: 300px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    font-size: 14px;
+    padding: 10px;
+    color: @dark;
+  }
+  input {
+    height: 40px;
+    border: none;
+    background: #BBB;
+    color: #FFF;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    &:hover {
+      background: #999;
+    }
+    font-size: 14px;
+  }
+}
+
+#new-input {
+  display: none;
+  width: 300px;
+  height: 45px;
+  background: @base;
+  margin: 0 auto;
+  color: #FFF;
+  text-align: center;
+  line-height: 45px;
+  text-decoration: none;
+  border-radius: 8px;
+  &:hover {
+    color: #FFF;
+    background: fade(@base, 60%);
+  }
+}
+
+#preview {
+  display: none;
+}
+
+#preview-content {
+  width: 800px;
+  background: #ffffff;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 8px fade(@dark, 20%);
   word-wrap: break-word;
-  padding: 10px;
+  min-height: 600px;
+}
+
+footer {
+  width: 1000px;
+  height: 500px;
+  margin: 200px auto 0;
+  background: fade(@base, 20%);
+  overflow: hidden;
+  
+  #copyright {
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.5);
+    color: fade(@dark, 60%);
+    line-height: 200px;
+    text-align: center;
+    border-radius: 100px;
+    margin: 150px 400px;
+    &:hover {
+      background: rgba(255, 255, 255, 1);
+      color: @base;
+      transition: color 1s, background 1s;
+    }
+  }
 }

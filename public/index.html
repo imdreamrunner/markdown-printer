@@ -6,20 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>markdown.link</title>
     <link rel="stylesheet" href="stylesheets/main.css">
+    <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
 </head>
 <body>
-<div id="wrapper">
-    <div id="code" class="section">
-        <div id="header_code" class="header">Code</div>
-        <textarea id="textarea_code"></textarea>
-        <!-- the textarea will be replaced by a text editor -->
+<header>
+    <h1>The Markdown Printer</h1>
+</header>
+<section id="source">
+    <h2>Source</h2>
+    <div id="input-wrapper">
+        <div id="select-source" class="selection">
+            <a id="select-github" href="javascript:" class="selected"><i class="fa fa-github"></i> GitHub</a>
+            <a id="select-clipboard" href="javascript:"><i class="fa fa-clipboard"></i> Text</a>
+            <a id="select-file" href="javascript:"><i class="fa fa-file-text"></i> Local file</a>
+        </div>
+        <div id="github-wrapper" class="source">
+            <input id="github" placeholder="Please paste an URL of a markdown file on GitHub here.">
+            <input id="github-button" type="button" value="Preview">
+        </div>
+        <div id="clipboard-wrapper" class="source">
+            <textarea id="clipboard"></textarea>
+            <input id="clipboard-button" type="button" value="Preview">
+        </div>
+        <div id="file-wrapper" class="source">
+        </div>
     </div>
-    <div id="preview" class="section">
-        <div id="header_preview" class="header">Preview</div>
-        <div id="preview_content"></div>
-    </div>
-    <div id="setting" class="section"></div>
-</div>
+    <a id="new-input" href="javascript:">Print new file</a>
+</section>
+<section id="preview">
+    <h2>Preview</h2>
+    <div id="preview-content"></div>
+</section>
+<footer>
+    <div id="copyright">markdown.link</div>
+</footer>
 <script src="javascripts/marked.min.js" type="application/javascript"></script>
 <script src="javascripts/main.js" type="application/javascript"></script>
 </body>
